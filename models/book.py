@@ -9,7 +9,7 @@ class Book(db.Document):
     bid = db.StringField(max_length=255, required=True)
     title = db.StringField(max_length=255, required=True)
     author = db.ListField(db.StringField(max_length=255), required=True)
-    translator = db.ListField(db.StringField(max_length=255), required=True)
+    translator = db.ListField(db.StringField(max_length=255))
     img = db.URLField(required=True)
     url = db.URLField(required=True)
     summary = db.StringField()
@@ -21,9 +21,8 @@ class Book(db.Document):
     rating_avg = db.StringField()
     meta = {
         'indexes': [
-            {'bid': ['-add_time'], 'unique': True},
-            {'isbn': ['-add_time']}
-        ]
+            {'fields': ['bid'], 'unique': True},
+        ],
     }
 
     def __unicode__(self):

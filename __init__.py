@@ -11,7 +11,7 @@ app.config["SECRET_KEY"] = "mysecretkey"
 db = MongoEngine(app)
 
 from books.views import book
-app.register_blueprint(book.bp)
+app.register_blueprint(book.bp, url_prefix='/book')
 
 if __name__ == '__main__':
     app.run()
