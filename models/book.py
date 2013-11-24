@@ -6,30 +6,28 @@ from books import db
 
 
 class Book(db.Document):
-    bid = db.StringField(required=True)
-    title = db.StringField(required=True)
-    author = db.ListField()
-    translator = db.ListField()
-    img = db.URLField()
-    url = db.URLField()
+    bid = db.StringField(max_length=255, required=True)
+    title = db.StringField(max_length=255, required=True)
+    author = db.ListField(db.StringField(max_length=255), required=True)
+    translator = db.ListField(db.StringField(max_length=255), required=True)
+    img = db.URLField(required=True)
+    url = db.URLField(required=True)
     summary = db.StringField()
     publisher = db.StringField()
-    isbn = db.StringField()
-    tags = db.ListField(db.ReferenceField('Tag'))
+    isbn = db.StringField(required=True)
+    tags = db.ListField(db.StringField(max_length=255))
     add_time = db.DateTimeField(default=datetime.datetime.now, required=True)
     raters_num = db.IntField()
     rating_avg = db.StringField()
+    meta = {
+        'indexes': [
+            {'bid': ['-add_time'], 'unique': True},
+            {'isbn': ['-add_time']}
+        ]
+    }
 
     def __unicode__(self):
         return self.title
-
-
-class Tag(db.Document):
-    name = db.StringField()
-    count = db.IntField()
-
-    def __unicode__(self):
-        return self.name
 
 
 #Class Author(db.Document):
