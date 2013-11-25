@@ -4,3 +4,4 @@ mongoengine
 flask_mongoengine
 WTForms
 flask-script
+requests
