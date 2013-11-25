@@ -15,7 +15,7 @@ class Book(db.Document):
     summary = db.StringField()
     publisher = db.StringField()
     isbn = db.StringField(required=True)
-    tags = db.ListField(db.StringField(max_length=255))
+    tags = db.ListField(db.ReferenceField('Tag'))
     add_time = db.DateTimeField(default=datetime.datetime.now, required=True)
     raters_num = db.IntField()
     rating_avg = db.StringField()
@@ -29,6 +29,17 @@ class Book(db.Document):
         return self.title
 
 
+class Tag(db.Document):
+    name = db.StringField(max_length=255, required=True)
+    count = db.IntField(required=True, default=1)
+    meta = {
+        'indexes': [
+            {'fields': ['name'], 'unique': True},
+        ],
+    }
+
+    def __name__(self):
+        return self.name
 #Class Author(db.Document):
 
 #class Resource(db.EmbeddedDocument):

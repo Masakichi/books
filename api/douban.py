@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from books.models.book import Book
+from books.models.book import Book, Tag
 import requests
 
 
@@ -20,8 +20,14 @@ def add_book(bid):
     tags = book_dict['tags']
     tag_list = []
     for tag in tags:
-        tag_list.append(tag['name'])
-
+        tag_existed = Tag.objects(name=tag['name'])
+        if tag_existed:
+            tag_existed.update_one(inc__count=1)
+            tag_list.append(tag_existed.first())
+        else:
+            tag_new = Tag(name=tag['name'])
+            tag_new.save()
+            tag_list.append(tag_new)
     tags = tag_list
     raters_num = book_dict['rating']['numRaters']
     rating_avg = book_dict['rating']['average']

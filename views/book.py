@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint
+from flask import Blueprint, render_template, url_for
 from books.models.book import Book
 from books.api.douban import add_book
 
@@ -11,7 +11,9 @@ bp = Blueprint('front', __name__)
 
 @bp.route('/')
 def index():
-    return 'hello.'
+    #return 'hello.'
+    books = Book.objects.all()
+    return render_template('index.html', books=books)
 
 
 @bp.route('/add/<bid>')
