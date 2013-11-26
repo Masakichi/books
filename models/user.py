@@ -5,9 +5,5 @@ from books import db
 import Book
 
 class User(db.Document):
-    user_name =
-    user_email =
-    user_push_email =
-    user_type =
-    user_type =
-
+    name = db.StringField(max_length=255, required=True)
+    password_hash = db.
