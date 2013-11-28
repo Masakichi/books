@@ -5,3 +5,4 @@ flask_mongoengine
 WTForms
 flask-script
 requests
+flak-login

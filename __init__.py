@@ -13,5 +13,7 @@ db = MongoEngine(app)
 from books.views import book
 app.register_blueprint(book.bp, url_prefix='/book')
 
+login_manager = LoginManager()
+
 if __name__ == '__main__':
     app.run()
