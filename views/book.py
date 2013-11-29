@@ -6,7 +6,7 @@ from books.models.book import Book
 from books.api.douban import add_book
 
 
-bp = Blueprint('front', __name__)
+bp = Blueprint('book', __name__)
 
 
 @bp.route('/')
