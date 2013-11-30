@@ -5,10 +5,10 @@ from books import db
 
 
 class User(db.Document):
-    uid = db.IntField(required=True)
-    name = db.StringField(max_length=255, required=True)
+    uid = db.IntField(required=True, primary_key=True)
+    name = db.StringField(max_length=255, required=True, unique=True)
     password_hash = db.StringField(max_length=255, required=True)
-    email = db.EmailField()
+    email = db.EmailField(required=True, unique=True)
 
     def is_authenticated(self):
         return True
